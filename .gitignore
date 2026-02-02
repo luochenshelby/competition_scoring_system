@@ -1,0 +1,33 @@
+# .gitignore
+
+# Python 缓存文件和编译文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+
+# IDE 配置文件
+# .idea/ 是PyCharm 配置目录
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 数据文件
+# 用户数据文件
+# 忽略 results 目录下的所有文件
+# 但不忽略 .gitkeep 文件
+data/users.json
+data/results/*
+!data/results/.gitkeep
+
+# 系统
+#.DS_Store        macOS 系统文件
+#Thumbs.db        Windows 缩略图缓存
+.DS_Store
+Thumbs.db
