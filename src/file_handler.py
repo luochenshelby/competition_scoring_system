@@ -1,4 +1,3 @@
-# 文件处理模块
 # file_handler.py
 import pandas as pd
 import json
@@ -30,7 +29,7 @@ class FileHandler:
 
     @staticmethod
     def save_results_excel(results_df: pd.DataFrame, filename: Optional[str] = None) -> str:
-        """保存结果到Excel文件（可选功能）"""
+        """保存结果到Excel文件（保留此函数但不主动调用）"""
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"比赛结果_{timestamp}.xlsx"
@@ -65,7 +64,7 @@ class FileHandler:
 
     @staticmethod
     def save_results_json(results_df: pd.DataFrame, filename: Optional[str] = None) -> str:
-        """保存结果到JSON文件"""
+        """保存结果到JSON文件（保留此函数但不主动调用）"""
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"比赛结果_{timestamp}.json"
@@ -96,6 +95,29 @@ class FileHandler:
         except Exception as e:
             print(f"{Fore.RED}保存JSON文件时出错: {e}{Style.RESET_ALL}")
             return ""
+
+    @staticmethod
+    def save_results_auto(results_df: pd.DataFrame, filename: Optional[str] = None) -> str:
+        """自动保存结果为CSV文件（主入口函数）"""
+        print(f"\n{Fore.CYAN}{'=' * 50}")
+        print(f"{' ' * 15}保存结果到文件")
+        print(f"{'=' * 50}{Style.RESET_ALL}")
+
+        # 询问用户是否使用自定义文件名
+        custom_name = input(f"输入文件名（留空使用默认名称）: ").strip()
+
+        if custom_name:
+            # 确保文件名有.csv扩展名
+            if not custom_name.endswith('.csv'):
+                custom_name += '.csv'
+            filename = custom_name
+        else:
+            # 使用默认文件名
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"比赛结果_{timestamp}.csv"
+
+        # 保存为CSV
+        return FileHandler.save_results_csv(results_df, filename)
 
     @staticmethod
     def list_saved_results():

@@ -90,46 +90,16 @@ class CompetitionApp:
         input(f"\n按{Fore.GREEN}Enter{Style.RESET_ALL}键继续...")
 
     def save_results(self):
-        """保存结果"""
+        """保存结果到文件"""
         if not self.scoring_system.scoring_complete:
             print(f"{Fore.RED}请先完成评分！{Style.RESET_ALL}")
             input(f"\n按{Fore.GREEN}Enter{Style.RESET_ALL}键继续...")
             return
 
-        print_header("保存结果到文件")
-
-        save_options = {
-            "1": "保存为CSV文件",
-            "2": "保存为Excel文件",
-            "3": "保存为JSON文件",
-            "4": "返回主菜单"
-        }
-
-        print_menu(save_options)
-
-        choice = input(f"请选择保存格式 ({Fore.GREEN}1-4{Style.RESET_ALL}): ").strip()
-
         results_df = self.scoring_system.get_results_dataframe()
 
-        if choice == "1":
-            custom_name = input(f"输入文件名（留空使用默认）: ").strip()
-            if custom_name and not custom_name.endswith('.csv'):
-                custom_name += '.csv'
-            self.file_handler.save_results_csv(results_df, custom_name)
-        elif choice == "2":
-            custom_name = input(f"输入文件名（留空使用默认）: ").strip()
-            if custom_name and not custom_name.endswith('.xlsx'):
-                custom_name += '.xlsx'
-            self.file_handler.save_results_excel(results_df, custom_name)
-        elif choice == "3":
-            custom_name = input(f"输入文件名（留空使用默认）: ").strip()
-            if custom_name and not custom_name.endswith('.json'):
-                custom_name += '.json'
-            self.file_handler.save_results_json(results_df, custom_name)
-        elif choice == "4":
-            return
-        else:
-            print(f"{Fore.RED}无效选择！{Style.RESET_ALL}")
+        # 直接调用自动保存功能，默认保存为CSV
+        self.file_handler.save_results_auto(results_df)
 
         input(f"\n按{Fore.GREEN}Enter{Style.RESET_ALL}键继续...")
 
