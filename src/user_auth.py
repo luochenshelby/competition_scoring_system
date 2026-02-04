@@ -36,15 +36,15 @@ class UserAuth:
         """创建默认用户"""
         default_users = {
             "admin": {
-                "password": self.hash_password("admin123"),
+                "password": self.hash_password("admin789"),
                 "role": "admin"
             },
-            "judge": {
-                "password": self.hash_password("judge123"),
+            "大法官": {
+                "password": self.hash_password("大法官456"),
                 "role": "judge"
             },
-            "user": {
-                "password": self.hash_password("user123"),
+            "小明": {
+                "password": self.hash_password("小明123"),
                 "role": "user"
             }
         }
